@@ -13,7 +13,7 @@ Summer 2023
 
 # Project J.A.R.V.I.S
 
-# ECED3901-2023-Team8_Subsystem-Code
+## ECED3901-2023-Team8_Subsystem-Code
 This is the repository for Group 8 for all the additional subsystems code not in the main repository./
 The 5 subsystems are:
 - Safety
