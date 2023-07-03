@@ -1,0 +1,121 @@
+/*!
+   @file vl53l0.ino
+   @brief DFRobot's Laser rangefinder library. The example shows the usage of VL53L0X in a simple way.
+
+   @copyright   Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
+   @license     The MIT License (MIT)
+   @author [LiXin](xin.li@dfrobot.com)
+   @version  V1.0
+   @date  2017-8-21
+   @url https://github.com/DFRobot/DFRobot_VL53L0X
+
+   @Updated 2023-06-28
+   @Group 8 Safery System Code
+   @ECED 3901: Elec Design 2
+   @edited by: Aidan Doucet and Connor Hawkins
+   @Version 2.0
+   @This version includes:
+   - A distance converter from millimeters and feet
+   - An error checker for the distances readings
+   - LED outputs for varous distance measurements
+*/
+
+//Including all the arduino libraries needed
+#include "Arduino.h"
+#include "Wire.h"
+#include "DFRobot_VL53L0X.h" 
+
+//Creating Sensor Object from DFRobobt_VL53L0X library
+DFRobot_VL53L0X sensor;
+
+//Making a function to convert mm to feet
+float mmToFt(float mm);
+
+//Creating checker variables
+float newDistance;
+float oldDistance;
+float veryOldDistance;
+float superOldDistance;
+
+//Defining the D pins by their associated LED colours
+#define green 8
+#define yellow 10
+#define red 12
+
+//Defining 1 foot as 304.8mm
+#define aFoot 304.8
+
+//Defining an error distance
+#define error 1.0
+
+void setup()
+{
+  //Initialize serial communication at baud rate of 9600 bits per second
+  Serial.begin(9600);
+  Wire.begin();
+  //Set I2C sub-device address
+  sensor.begin(0x50);
+  pinMode(green, OUTPUT);   //Green LED is an output
+  pinMode(yellow, OUTPUT);  //Yellow LED is an output
+  pinMode(red, OUTPUT);     //Red LED is an output
+  //Set to Back-to-back mode and high precision mode
+  sensor.setMode(sensor.eContinuous, sensor.eHigh);
+  //Laser rangefinder begins to work
+  sensor.start();
+  //Calling member function start of class sensor
+}
+
+void loop()
+{
+  //Print "Distance: " on the serial monitor
+  Serial.print("Distance: ");
+  //Print the distance reading on the serial monitor in feet
+  Serial.println(mmToFt(sensor.getDistance()));
+  //Take readings every 50ms
+  delay(50);
+  //Get a new distance and convert to feet
+  newDistance = mmToFt(sensor.getDistance());
+  if (newDistance == 0.0 || newDistance > (oldDistance + error) || newDistance < (oldDistance - error) ||  newDistance > (veryOldDistance + error) || newDistance < (veryOldDistance - error) || newDistance > (superOldDistance + error) || newDistance < (superOldDistance - error))
+  {
+    //Checking for common errors that occur when the sensor is rainging past 2 meters
+    digitalWrite(8, HIGH);
+    digitalWrite(10, LOW);
+    digitalWrite(12, LOW);
+  }
+  else if (newDistance <= 2.0)
+  {
+    //When distance is 2ft. or less, turn on Red LED
+    digitalWrite(green, LOW);
+    digitalWrite(yellow, LOW);
+    digitalWrite(red, HIGH);
+  }
+  else if (newDistance > 2.0 && newDistance <= 4.0)
+  {
+    //When distance is over 2ft and 4ft. or less, turn on Yellow LED
+    digitalWrite(green, LOW);
+    digitalWrite(yellow, HIGH);
+    digitalWrite(red, LOW);
+  }
+  else
+  {
+    //When distance is over 4ft., turn on Green LED
+    digitalWrite(green, HIGH);
+    digitalWrite(yellow, LOW);
+    digitalWrite(red, LOW);
+  }
+  //Move the distances down to check next
+  superOldDistance = veryOldDistance;
+  veryOldDistance = oldDistance;
+  oldDistance = newDistance;
+}
+
+float mmToFt(float mm)
+{
+  if (mm>1200)
+  {
+    return (mm/aFoot);
+  }
+  //The arduino takes readings in mm so this is a function to convert them to feet
+  else
+  return ((mm/aFoot)-0.1 );
+}
