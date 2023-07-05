@@ -1,0 +1,79 @@
+/* 
+name=Servo
+version=1.2.1
+author=Michael Margolis, Arduino
+maintainer=Arduino <info@arduino.cc>
+sentence=Allows Arduino boards to control a variety of servo motors.
+paragraph=This library can control a great number of servos.<br />It makes careful use of timers: the library can control 12 servos using only 1 timer.<br />On the Arduino Due you can control up to 60 servos.
+category=Device Control
+url=https://www.arduino.cc/reference/en/libraries/servo/
+architectures=avr,megaavr,sam,samd,nrf52,stm32f4,mbed,mbed_nano,mbed_portenta,mbed_rp2040,renesas,renesas_portenta,renesas_uno
+
+:repository-owner: arduino-libraries
+:repository-name: Servo
+
+= {repository-name} Library for Arduino =
+
+image:https://github.com/{repository-owner}/{repository-name}/actions/workflows/check-arduino.yml/badge.svg["Check Arduino status", link="https://github.com/{repository-owner}/{repository-name}/actions/workflows/check-arduino.yml"]
+image:https://github.com/{repository-owner}/{repository-name}/actions/workflows/compile-examples.yml/badge.svg["Compile Examples status", link="https://github.com/{repository-owner}/{repository-name}/actions/workflows/compile-examples.yml"]
+image:https://github.com/{repository-owner}/{repository-name}/actions/workflows/spell-check.yml/badge.svg["Spell Check status", link="https://github.com/{repository-owner}/{repository-name}/actions/workflows/spell-check.yml"]
+
+This library allows an Arduino board to control RC (hobby) servo motors.
+
+For more information about this library please visit us at
+https://www.arduino.cc/reference/en/libraries/servo/
+
+#Updated: July 4th/2023
+#Project: J.A.R.V.I.S.
+#ECED 3901 
+#Edited: Nick Bigley and Connor Hawkins 
+*/ 
+
+#include <Servo.h> // importing servo library (include lisence as well)
+Servo servo; // creating servo object
+int angle = 90; //Set the initial angle to 90 degrees due to the limited rotation of the servo motor. 
+void setup() {
+  servo.attach(10); // member function within servo data type where arguement 10 is telling us were using digital pin 10
+  servo.write(angle); // outputting the angle 
+  rotateCW();  // Calling clockwise rotation function
+  original_poseCCW(); // Function to return servo to original 90 degree position after 90 degree clockwise rotation
+  rotateCCW(); // Calling counterclockwise rotation function
+  original_poseCW(); // Function to return servo to orignal 90 degree position after 90 degree counterclockwise rotation
+}
+
+void loop() {  
+
+} 
+
+void rotateCW(){ 
+for(angle = 90; angle > 0; angle--)  
+  {                                  
+    servo.write(angle);      // outputs 90 and decreases incrementally until 0 with a 50ms delay          
+    delay(50);               // 50ms delay
+  }                          // exits for loop and returns to function call 
+}  
+void original_poseCCW(){ 
+  for(angle = 0; angle < 90; angle++)  
+  {                                  
+    servo.write(angle);     // outputs 0 degrees and increases incrementally until it returns to original 90 with 50ms delay
+    delay(50);              // delay            
+ }                          // exits loop and returns to function call
+ // delay(1000); Delay added for dynamic testing 
+}
+
+void rotateCCW(){  
+  for (angle = 90; angle < 180; angle++){                                 
+    servo.write(angle);     // outputs 90 degrees and increases incrementally until 180 degrees with 50ms delay
+    delay(50);              // 50ms delays-
+  }                         // exits loop and returns to function call
+}
+
+
+void original_poseCW(){ 
+  for(angle = 180; angle > 90 ; angle--)  
+  {                                  
+    servo.write(angle);  // outputs 180 degrees until it returns to its original 90 degree position with 50ms delay
+    delay(50);           // 50ms delay                  
+  } 
+ // delay(1000); Delay added for dynamic testing  
+}
