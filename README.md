@@ -29,7 +29,7 @@ Description:\
 
 
 ## Humidity
-### Katie MacLenna
+### Katie MacLennan
 
 Description:\
 
@@ -37,8 +37,7 @@ Description:\
 ## Leak Mitigation
 ### Nick Bigley
 
-Description:\
-
+Description:\ All the files found in the leak mitiagtion folder contain the schematics, CAD drawings, servo code to operate the designed contraption. This system is designed to satisfy requirement 15 in the 2023 ECED 3901 ChallengeV3 document.
 
 ## Sensor Integration
 ### Connor Hawkins
