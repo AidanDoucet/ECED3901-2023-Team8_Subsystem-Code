@@ -37,7 +37,7 @@ Description:\
 ## Leak Mitigation
 ### Nick Bigley
 
-Description:\ All the files found in the leak mitiagtion folder contain the schematics, CAD drawings, servo code to operate the designed contraption. This system is designed to satisfy requirement 15 in the 2023 ECED 3901 ChallengeV3 document.
+Description:\ All the files found in the leak mitiagtion folder contain the schematics, CAD drawings, and the servo code to operate the SG90 servo motor in the designed contraption. This system is designed to satisfy requirement 15 in the 2023 ECED 3901 ChallengeV3 document.
 
 ## Sensor Integration
 ### Connor Hawkins
