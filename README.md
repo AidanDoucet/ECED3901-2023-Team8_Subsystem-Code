@@ -13,8 +13,8 @@ Summer 2023
 
 # Project J.A.R.V.I.S
 
-## ECED3901-2023-Team8_Subsystem-Code
-This is the repository for Group 8 for all the additional subsystems code not in the main repository for the 2023 Peter Gregson Design Challenge./
+## ECED3901 2023 Team8 Subsystem Code
+This is the repository for Group 8 for all the additional subsystems code not in the main repository for the 2023 Peter Gregson Design Challenge.
 The 5 subsystems are:
 - Safety
 - Humidity
@@ -26,7 +26,7 @@ The 5 subsystems are:
 ### Aidan Doucet
 
 Description:\
-
+The code located in the Safety folder was used to program the DFRobot Gravity: VL53L0X ToF Laser Range Finder. The system was mounted on the mitigation system contraption. This system is designed to satisfy requirements 12 and 17 in the 2023 ECED 3901 ChallengeV3 document.
 
 ## Humidity
 ### Katie MacLennan
@@ -37,7 +37,8 @@ Description:\
 ## Leak Mitigation
 ### Nick Bigley
 
-Description:\ All the files found in the leak mitiagtion folder contain the schematics, CAD drawings, and the servo code to operate the SG90 servo motor in the designed contraption. This system is designed to satisfy requirement 15 in the 2023 ECED 3901 ChallengeV3 document.
+Description:\
+All the files found in the leak mitiagtion folder contain the schematics, CAD drawings, and the servo code to operate the SG90 servo motor in the designed contraption. This system is designed to satisfy requirement 15 in the 2023 ECED 3901 ChallengeV3 document.
 
 ## Sensor Integration
 ### Connor Hawkins
